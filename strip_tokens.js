@@ -9,5 +9,6 @@ content.accessToken = ''
 content.appSecret = ''
 content.error = ''
 content.message = ''
+content.verifyToken = ''
 
 fs.writeFileSync(configPath, JSON.stringify(content))
