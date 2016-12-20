@@ -2,7 +2,7 @@
 
 # Boost
 
-An open-source motivational bot for Messenger.
+An open-source motivational bot for Messenger developed on the [Botpress](https://github.com/botpress/botpress) platform.
 
 ## Features
 
@@ -19,7 +19,7 @@ An open-source motivational bot for Messenger.
 
 Botpress requires [node](https://nodejs.org) (version >= 4.2) and uses [npm](https://www.npmjs.com) as package manager.
 
-Boost is powered by [**Botpress**](https://github.com/botpress/botpress), an open-source bot platform.
+Boost is powered by [Botpress](https://github.com/botpress/botpress), an open-source bot platform.
 
 ## Getting started
 
