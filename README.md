@@ -1,4 +1,4 @@
-<a href='https://m.me/BoostFuel'><img src='/assets/screenshot-broadcast.png' height='300px'></a>
+<a href='https://m.me/BoostFuel'><img src='/assets/banner.png' height='300px'></a>
 
 # Boost
 
