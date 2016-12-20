@@ -2,7 +2,9 @@
 
 # Boost
 
-An open-source motivational bot for Messenger developed on the [Botpress](https://github.com/botpress/botpress) platform.
+An open-source motivational bot for Messenger.
+
+Since it is built on the [Botpress](https://github.com/botpress/botpress) platform, it is simple, lightweight (~300 lines of code) and portable.
 
 ## Features
 
