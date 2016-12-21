@@ -1,6 +1,8 @@
 const axios = require('axios')
 const _ = require('lodash')
 
+const YOUTUBE_API_KEY = process.env.YOUTUBE_API_KEY
+
 const videos = {
   WORK: [
     "DNFtCIzJQ7A",
@@ -64,7 +66,6 @@ const videos = {
 }
 
 const getYoutubeVideoMetadata = (videoId) => {
-  const YOUTUBE_API_KEY = process.env.YOUTUBE_API_KEY
   const apiUrl = `https://content.googleapis.com/youtube/v3/videos?id=${videoId}&part=snippet&key=${YOUTUBE_API_KEY}`
 
   return axios.get(apiUrl)

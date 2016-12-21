@@ -42,6 +42,38 @@ const pickCategory = {
   typing: true
 }
 
+const WELCOME_SENTENCES = [
+  "Hey, so I've heard that you need a little kick in the butt from time to time? Don't worry mate, that's my job and I'll do that for you 👏",
+  "In exchange I only ask from you that you don't talk to me like I was human.. I'm clearly not! 🤖",
+  "👉 Let's just stick to using buttons, that's going to be easier for the both of us"
+]
+
+const WELCOME_TEXT_QUICK_REPLY = "That being said, choose a category right away and I'll make sure you get pumped up!"
+
+const DEFAULT_ANSWERS = event => [
+  event.user.first_name + ", I told you, I'm a bit dumb. I assume you want motivation, 'cause that's all I'm able to do :)",
+  "I don't understand much of what you say " + event.user.first_name,
+  "I'm only here to give you motivation",
+  "My creators made me dumb on purpose, they say I shouldn't try to be human-like :s",
+  "I'm not here to talk " + event.user.first_name + ", I'm here to give you motivation!"
+]
+
+const shareTemplate = {
+  template_type: 'generic',
+  elements: [{
+    title: 'Clicking this button could literally change your life',
+    item_url: 'https://m.me/boostfuel',
+    image_url: 'https://s27.postimg.org/dl8i0udqb/motivation_on_demand.png',
+    buttons: [{
+      type: 'web_url',
+      title: '👏 Make it happen',
+      url: 'https://m.me/boostfuel'
+    }, { type: 'element_share' }]
+  }]
+}
+
+const SHARE_TEXT = "PLEASE! If you enjoy the service I am giving you, consider sharing the card below with some of your friends 👇!"
+
 module.exports = function(bp) {
   bp.middlewares.load()
   subscription(bp)
@@ -55,21 +87,11 @@ module.exports = function(bp) {
 
     bp.subscription.subscribe(event.user.id, 'daily')
 
-    const WELCOME_SENTENCES = [
-      "Hey, so I've heard that you need a little kick in the butt from time to time? Don't worry mate, that's my job and I'll do that for you 👏",
-      "In exchange I only ask from you that you don't talk to me like I was human.. I'm clearly not! 🤖",
-      "👉 Let's just stick to using buttons, that's going to be easier for the both of us"
-    ]
-
-    const WELCOME_TEXT_QUICK_REPLY = "That being said, choose a category right away and I'll make sure you get pumped up!"
-
-    Promise.mapSeries(WELCOME_SENTENCES, txt => {
-      bp.messenger.sendText(event.user.id, txt, { typing: true })
-      return Promise.delay(2000)
+    return Promise.mapSeries(WELCOME_SENTENCES, txt => {
+      return bp.messenger.sendText(event.user.id, txt, { typing: true, waitDelivery: true })
+      .then(Promise.delay(250))
     })
-    .then(() => {
-      bp.messenger.sendText(event.user.id, WELCOME_TEXT_QUICK_REPLY, pickCategory)
-    })
+    .then(() => bp.messenger.sendText(event.user.id, WELCOME_TEXT_QUICK_REPLY, pickCategory))
   })
 
   bp.hear(/TRIGGER_DAILY/i, (event, next) => {
@@ -79,9 +101,7 @@ module.exports = function(bp) {
   const hearGetVideo = category => {
     bp.hear({ text: 'GET_VIDEO_' + category }, (event, next) => {
       const text = _.sample(TEXT_CATEGORIES[category])
-      bp.messenger.sendText(event.user.id, text)
-
-      Promise.delay(1000)
+      bp.messenger.sendText(event.user.id, text, { waitDelivery: true })
       .then(() => bp.sendRandomVideo(event.user.id, category))
     })
   }
@@ -90,22 +110,14 @@ module.exports = function(bp) {
   _.keys(TEXT_CATEGORIES).forEach(hearGetVideo)
 
   bp.botDefaultResponse = event => {
-    const ANSWERS = [
-      event.user.first_name + ", I told you, I'm a bit dumb. I assume you want motivation, 'cause that's all I'm able to do :)",
-      "I don't understand much of what you say " + event.user.first_name,
-      "I'm only here to give you motivation",
-      "My creators made me dumb on purpose, they say I shouldn't try to be human-like :s",
-      "I'm not here to talk " + event.user.first_name + ", I'm here to give you motivation!"
-    ]
-    
-    const text = _.sample(ANSWERS)
-    bp.messenger.sendText(event.user.id, text, pickCategory)
+    const text = _.sample(DEFAULT_ANSWERS(event))
+    return bp.messenger.sendText(event.user.id, text, pickCategory)
   }
 
   bp.sendRandomVideo = (userId, category) => {
-    videos.getRandomVideo(category)
+    return videos.getRandomVideo(category)
     .then(meta => {
-      bp.messenger.sendTemplate(userId, {
+      return bp.messenger.sendTemplate(userId, {
         template_type: 'generic',
         elements: [{
           title: meta.title,
@@ -129,36 +141,28 @@ module.exports = function(bp) {
         }]
       })
     })
-
-    const n = _.random(0, 10)
-    if (n === 5) { // 10% chance of saying this
-      setTimeout(() => {
-        bp.messenger.sendText(userId, "PLEASE! If you enjoy the service I am giving you, consider sharing the card below with some of your friends 👇!")
-
-        setTimeout(() => {
-          bp.messenger.sendTemplate(userId, {
-            template_type: 'generic',
-            elements: [{
-              title: 'Clicking this button could literally change your life',
-              item_url: 'https://m.me/boostfuel',
-              image_url: 'https://s27.postimg.org/dl8i0udqb/motivation_on_demand.png',
-              buttons: [{
-                type: 'web_url',
-                title: '👏 Make it happen',
-                url: 'https://m.me/boostfuel'
-              }, { type: 'element_share' }]
-            }]
-          })
-        }, 2000)
-      }, 15 * 1000)
-    }
+    .then(() => {
+      // 10% chance of saying this
+      const n = _.random(0, 10)
+      if (n === 5) {
+        return Promise.delay(15000)
+        .then(() => bp.sendShare(userId))
+      }
+    })
   }
 
-  bp.sendDailyVideo = (userId) => {
+  bp.sendShare = userId => {
+    return bp.messenger.sendText(userId, SHARE_TEXT)
+    .then(Promise.delay(1000))
+    .then(() => bp.messenger.sendTemplate(userId, shareTemplate))
+  }
+
+  bp.sendDailyVideo = userId => {
     const category = _.sample(_.keys(TEXT_CATEGORIES))
     const text = "Here's your daily motivational video, have an excellent day 😁!"
 
     bp.messenger.sendText(userId, text)
-    setTimeout(() => bp.sendRandomVideo(userId, category), 1000)
+    .then(Promise.delay(1000))
+    .then(() => bp.sendRandomVideo(userId, category))
   }
 }
