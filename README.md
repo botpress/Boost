@@ -4,7 +4,7 @@
 
 An open-source motivational bot for Messenger.
 
-Since it is built on the [Botpress](https://github.com/botpress/botpress) platform, it is simple, lightweight (~300 lines of code) and portable.
+Since it is built on the [Botpress](https://github.com/botpress/botpress) platform, it is simple, lightweight (~250 lines of code) and portable.
 
 ## Features
 
@@ -51,9 +51,9 @@ You must re-run (`npm start`) after every change to the bot code.
 
 Everybody is welcomed to contribute to Boost. Note that only contributions addressing open GitHub issues will be considered. Please open an issue before contributing!
 
-1) Fork this repo
-2) Make changes in your repo
-3) Submit pull request on this repo
+1. Fork this repo
+2. Make changes in your repo
+3. Submit pull request on this repo
 
 ## Community (Botpress)
 
