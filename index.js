@@ -74,6 +74,8 @@ const shareTemplate = {
 
 const SHARE_TEXT = "PLEASE! If you enjoy the service I am giving you, consider sharing the card below with some of your friends 👇!"
 
+const OPEN_SOURCE_TEXT = "This bot is open-source and released under the AGPL-3 license. Contributions are welcomed.\n⚡ This bot is powered by the Botpress Platform."
+
 module.exports = function(bp) {
   bp.middlewares.load()
   subscription(bp)
@@ -96,6 +98,21 @@ module.exports = function(bp) {
 
   bp.hear(/TRIGGER_DAILY/i, (event, next) => {
     bp.sendDailyVideo(event.user.id)
+  })
+
+  bp.hear({
+    type: 'postback',
+    text: 'OPEN_SOURCE'
+  }, (event, next) => {
+    return bp.messenger.sendTemplate(event.user.id, {
+      template_type: 'button',
+      text: OPEN_SOURCE_TEXT,
+      buttons: [{ 
+        type: 'web_url',
+        title: 'View on GitHub',
+        url: 'https://github.com/botpress/Boost'
+      }]
+    })
   })
 
   const hearGetVideo = category => {

@@ -29,7 +29,19 @@ You should get familiar with [Botpress](https://github.com/botpress/botpress) an
 
 ### Running the bot
 
-Simply run `npm install` then `npm start` in the project root. The bot should be running at `http://localhost:3000`.
+Install the bot:
+
+```
+npm install
+```
+
+Run it:
+
+```
+YOUTUBE_API_KEY=<YOUR API KEY> npm start
+```
+
+The bot should be running at `http://localhost:3000`
 
 To develop and test locally, we suggest you setup [ngrok](https://ngrok.com/) in the botpress-messenger module.
 
