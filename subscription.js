@@ -23,7 +23,7 @@ const manageSubscriptions = (bp, userId) => {
 const scheduleBroadcast = (bp, api) => () => {
   const tomorrow = moment().add(1, 'day').format('YYYY-MM-DD')
 
-  api.put('botpress-broadcast/broadcasts', {
+  return api.put('botpress-broadcast/broadcasts', {
     date: tomorrow,
     time: '08:00',
     timezone: null, // users timezone
