@@ -32,7 +32,7 @@ const scheduleBroadcast = (bp, api) => () => {
     filters: ["bp.subscription.isSubscribed(userId, 'daily')"]
   })
   .catch(err => {
-    bp.logger.error(err)
+    bp.logger.error(err && err.message, err && err.stack)
     bp.notifications.send({
       level: 'error',
       message: 'Could not schedule broadcast. See logs.'
