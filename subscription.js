@@ -45,7 +45,7 @@ module.exports = bp => {
 
   const api = axios.create({
     baseURL: 'http://localhost:' + bp.botfile.port + '/api/',
-    headers: {'Authorization': token.token}
+    headers: {'Authorization': token && token.token}
   })
 
   bp.scheduleBroadcast = scheduleBroadcast(bp, api)
