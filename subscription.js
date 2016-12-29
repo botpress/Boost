@@ -20,9 +20,16 @@ const manageSubscriptions = (bp, userId) => {
   })
 }
 
-const scheduleBroadcast = (bp, api) => () => {
+const scheduleBroadcast = bp => () => {
   const tomorrow = moment().add(1, 'day').format('YYYY-MM-DD')
+  
+  const token = bp.security.login('admin', bp.botfile.login.password, '127.0.0.1')
 
+  const api = axios.create({
+    baseURL: 'http://localhost:' + bp.botfile.port + '/api/',
+    headers: {'Authorization': token && token.token}
+  })
+  
   return api.put('botpress-broadcast/broadcasts', {
     date: tomorrow,
     time: '08:00',
@@ -41,13 +48,6 @@ const scheduleBroadcast = (bp, api) => () => {
 }
 
 module.exports = bp => {
-  const token = bp.security.login('admin', bp.botfile.login.password, '127.0.0.1')
-
-  const api = axios.create({
-    baseURL: 'http://localhost:' + bp.botfile.port + '/api/',
-    headers: {'Authorization': token && token.token}
-  })
-
-  bp.scheduleBroadcast = scheduleBroadcast(bp, api)
+  bp.scheduleBroadcast = scheduleBroadcast(bp)
   bp.manageSubscriptions = manageSubscriptions
 }
