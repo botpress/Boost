@@ -5,13 +5,13 @@ const subscription = require('./subscription')
 
 const TEXT_CATEGORIES = {
   WORK: [
-    "Hard work beats talent every time",
-    "The marketplace punishes those that don't work hard",
-    "You don't get paid for the time, you get paid for the value you bring"
+    "Hard work beats talent every time.",
+    "The marketplace punishes those that don't work hard.",
+    "You don't get paid for the time, you get paid for the value you bring."
   ],
   LIFE: [
-    "This one is really worth a watch",
-    "You live only once, find the courage",
+    "This one is really worth a watch.",
+    "You live only once, find the courage.",
     "Remember systems are better than goals!"
   ],
   GYM: [
@@ -51,7 +51,7 @@ const WELCOME_SENTENCES = [
 const WELCOME_TEXT_QUICK_REPLY = "Choose a video category right away and I'll make sure you get pumped up!"
 
 const DEFAULT_ANSWERS = event => [
-  event.user.first_name + ", Choose something from the menu below but please don't say words to me :)",
+  event.user.first_name + ", choose something from the menu below but please don't say words to me :)",
   "Help, words are not my strong point " + event.user.first_name,
   "Motivational videos are all I understand unfortunately",
   "I like you.  You say words to me that sound nice even if I don't understand them :s",
