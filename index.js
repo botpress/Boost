@@ -11,13 +11,13 @@ const TEXT_CATEGORIES = {
   ],
   LIFE: [
     "This one is really worth a watch",
-    "You live only once.. don't mess it up",
-    "What are your goals?"
+    "You live only once, find the courage",
+    "Remember systems are better than goals!"
   ],
   GYM: [
-    "Listening to that while on the threadmill will result in 20% more results",
+    "You will find yourself working 20% harder just by listening to this on the trendmill",
     "Happy to be your workout mate... Watch this!",
-    "If you are not pumped up after this video, I really don't know what to do"
+    "If you are not pumped up after this video, I really don't know what to tell you"
   ]
 }
 
@@ -43,19 +43,19 @@ const pickCategory = {
 }
 
 const WELCOME_SENTENCES = [
-  "Hey, so I've heard that you need a little kick in the butt from time to time? Don't worry mate, that's my job and I'll do that for you 👏",
-  "In exchange I only ask from you that you don't talk to me like I was human.. I'm clearly not! 🤖",
-  "👉 Let's just stick to using buttons, that's going to be easier for the both of us"
+  "Hey, so I've heard that you a little bit of Dr Boost magic.  Don't worry I've got some videos that will give you back your energy and determination 👏",
+  "By the way, I'm not human or artificially intelligent so let's just stick to using buttons, that's going to be easier for the both of us 🤖",
+  "👉 Use the menus on messenger if you get stuck."
 ]
 
-const WELCOME_TEXT_QUICK_REPLY = "That being said, choose a category right away and I'll make sure you get pumped up!"
+const WELCOME_TEXT_QUICK_REPLY = "Choose a video category right away and I'll make sure you get pumped up!"
 
 const DEFAULT_ANSWERS = event => [
-  event.user.first_name + ", I told you, I'm a bit dumb. I assume you want motivation, 'cause that's all I'm able to do :)",
-  "I don't understand much of what you say " + event.user.first_name,
-  "I'm only here to give you motivation",
-  "My creators made me dumb on purpose, they say I shouldn't try to be human-like :s",
-  "I'm not here to talk " + event.user.first_name + ", I'm here to give you motivation!"
+  event.user.first_name + ", Choose something from the menu below but please don't say words to me :)",
+  "Help, words are not my strong point " + event.user.first_name,
+  "Motivational videos are all I understand unfortunately",
+  "I like you.  You say words to me that sound nice even if I don't understand them :s",
+  "I hope you see how easy it is to create a bot on botpress " + event.user.first_name + ", clearly I'm in need of some nlp functionality though!"
 ]
 
 const shareTemplate = {
