@@ -2,7 +2,7 @@
 const moment = require('moment')
 
 const manageSubscriptions = (bp, userId) => {
-  return bp.subscription.isSubscribed(userId, 'daily')
+  return bp.subscription.isSubscribed('facebook:' + userId, 'daily')
   .then(subscribed => {
     if (subscribed) {
       bp.messenger.sendTemplate(userId, {
