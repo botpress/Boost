@@ -36,7 +36,7 @@ const scheduleBroadcast = bp => () => {
     timezone: null, // users timezone
     type: 'javascript',
     content: "bp.sendDailyVideo(userId)",
-    filters: ["bp.subscription.isSubscribed(userId, 'daily')"]
+    filters: ["bp.subscription.isSubscribed('facebook:' + userId, 'daily')"]
   })
   .catch(err => {
     bp.logger.error(err && err.message, err && err.stack)
