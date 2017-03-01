@@ -42,7 +42,32 @@ module.exports = {
 
   config: {
     'botpress-messenger': {
-      greetingMessage: '🔥  Hey {{user_first_name}}, my name is Boost. I was born to show people how easy it is to create a basic bot with botpress, they never expected me to literally change peoples lives!\n\nAre you ready to:\n- Take charge of your life\n- Work out harder at the gym\n- Achieve more at work.\n\nDon\'t you just want to be great? 💪\n'
+
+       greetingMessage: '🔥 Hey {{user_first_name}}, my name is Boost. I was born to show people how easy it is to create a basic bot with botpress, they never expected me to literally change peoples lives!\n\nAre you ready to:\n- Take charge of your life\n- Work out harder at the gym\n- Achieve more at work.\n\nDon\'t you just want to be great? 💪\n',
+       
+       persistentMenu: true,
+       
+       persistentMenuItems: [ 
+         { type: 'postback',
+            title: '💪 Gym Motivation',
+            value: 'GET_VIDEO_GYM' },
+          { type: 'postback',
+            title: '🔥 Work Motivation',
+            value: 'GET_VIDEO_WORK' },
+          { type: 'postback',
+            title: '😇 Life Motivation',
+            value: 'GET_VIDEO_LIFE' },
+          { type: 'postback',
+            title: '👉 Manage subscriptions',
+            value: 'MANAGE_SUBSCRIPTIONS' },
+          { type: 'postback',
+            title: '⭐ This bot is open-source',
+            value: 'OPEN_SOURCE' } 
+        ],
+
+        trustedDomains: [ 'https://youtube.com' ],
+      
+        autoRespondGetStarted: false
     }
   }
 }
