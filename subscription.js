@@ -20,10 +20,10 @@ const manageSubscriptions = (bp, userId) => {
   })
 }
 
-const scheduleBroadcast = bp => () => {
+const scheduleBroadcast = bp => async () => {
   const tomorrow = moment().add(1, 'day').format('YYYY-MM-DD')
   
-  const token = bp.security.login('admin', bp.botfile.login.password, '127.0.0.1')
+  const token = await bp.security.login('admin', bp.botfile.login.password, '127.0.0.1')
 
   const api = axios.create({
     baseURL: 'http://localhost:' + bp.botfile.port + '/api/',
@@ -36,7 +36,7 @@ const scheduleBroadcast = bp => () => {
     timezone: null, // users timezone
     type: 'javascript',
     content: "bp.sendDailyVideo(userId)",
-    filters: ["bp.subscription.isSubscribed(userId, 'daily')"]
+    filters: ["bp.subscription.isSubscribed('facebook:' + userId, 'daily')"]
   })
   .catch(err => {
     bp.logger.error(err && err.message, err && err.stack)
