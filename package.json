@@ -6,7 +6,7 @@
   "dependencies": {
     "axios": "^0.15.3",
     "bluebird": "^3.4.6",
-    "botpress": "^0.1.2",
+    "botpress": "^0.2.1",
     "botpress-analytics": "^2.0.6",
     "botpress-broadcast": "^2.0.3",
     "botpress-dialog": "^1.0.12",
@@ -20,7 +20,6 @@
   },
   "scripts": {
     "start": "botpress start",
-    "precommit": "node strip_tokens.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Botpress Team",

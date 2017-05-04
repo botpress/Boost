@@ -61,7 +61,7 @@ module.exports = {
             title: '👉 Manage subscriptions',
             value: 'MANAGE_SUBSCRIPTIONS' },
           { type: 'postback',
-            title: '⭐ This bot is open-source',
+            title: '⭐ This bot is Open-source',
             value: 'OPEN_SOURCE' } 
         ],
 
