@@ -19,7 +19,7 @@ Since it is built on the [Botpress](https://github.com/botpress/botpress) platfo
 
 ## Requirements
 
-Botpress requires [node](https://nodejs.org) (version >= 4.2) and uses [npm](https://www.npmjs.com) as package manager.
+Boost requires [node](https://nodejs.org) (version >= 7.0) and uses [npm](https://www.npmjs.com) as package manager.
 
 Boost is powered by [Botpress](https://github.com/botpress/botpress), an open-source bot platform.
 
